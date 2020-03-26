@@ -1,0 +1,7 @@
+@import 'variables';
+@import 'nystyle';
+
+body{
+    background-color: $primaryThemeColor;
+    font-family: $bodyFontStack;
+}
