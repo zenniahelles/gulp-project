@@ -1,7 +1,7 @@
 {
-  "name": "gulp-test",
-  "version": "1.0.0",
-  "description": "",
+  "name": "@zenniahelles/gulp-boilerplate",
+  "version": "0.1.0",
+  "description": "sSuper simpel boilerplate for Gulp",
   "main": "index.js",
   "scripts": {
     "dev": "gulp",
@@ -14,7 +14,8 @@
   },
   "bugs": "https://github.com/zenniahelles/gulp-test/issues",
   "homepage": "https://github.com/zenniahelles/gulp-test#readme",
-  "author": "",
+  "keywords": ["Gulp", "sass", "pug", "imagemin", "babel", "boilerplate"],
+  "author": "Zennia Helles <zenniahelles@gmail.com",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.9.0",
