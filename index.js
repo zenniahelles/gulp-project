@@ -19,7 +19,9 @@ function copyFile(from, to) {
 function copyFileMulti(fromDir, toDir) {
     fs.readdirSync(path.join(TEMPLATE_DIR, fromDir))
         .forEach(function(file) {
+            if (fs.lstatSync(path.join(TEMPLATE_DIR, fromDir, file)).isFile()){
             copyFile(path.join(fromDir, file), path.join(toDir, file));
+            }
         });
 }
 
@@ -29,8 +31,6 @@ function write(file, str, mode) {
 }
 
 mkdir.sync("./tasks");
-// mkdir.sync("./src");
-// mkdir.sync("./src/html");
 mkdir.sync("./src/html/layouts");
 mkdir.sync("./src/scss");
 mkdir.sync("./src/js");
@@ -46,32 +46,15 @@ copyFileMulti("src/images", "./src/images");
 copyFileMulti("src/media", "./src/media");
 copyFile("gulpfile.js", "./gulpfile.js");
 
-let package = require("./package");
+exec("npm i -D @babel/core @babel/preset-env gulp gulp-babel gulp-clean-css gulp-concat gulp-connect gulp-imagemin gulp-pug gulp-rename gulp-sass gulp-sourcemaps gulp-uglify imagemin-jpeg-recompress", function(err, stdout, stderr) {
+	if (err) {
+		console.log(err);
+		process.exit(1);
+	}
 
-package.devDependencies = {
-    "@babel/core": "^7.9.0",
-    "@babel/preset-env": "^7.9.0",
-    "gulp": "^4.0.2",
-    "gulp-babel": "^8.0.0",
-    "gulp-clean-css": "^4.3.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-connect": "^5.7.0",
-    "gulp-imagemin": "^7.1.0",
-    "gulp-pug": "^4.0.1",
-    "gulp-rename": "^2.0.0",
-    "gulp-sass": "^4.0.2",
-    "gulp-sourcemaps": "^2.6.5",
-    "gulp-uglify": "^3.0.2",
-    "imagemin-jpeg-recompress": "^6.0.0"
-  };
+	console.log("Installing NPM packages. Please wait.");
 
-write("./package.json", package);
-
-// fs.copyFileSync("./pkg/gulpfile.js", "./gulpfile.js");
-// let tasks = fs.readdirSync("./pkg/tasks");
-
-// fs.mkdirSync("./tasks");
-
-// tasks.forEach(function(file) {
-//     fs.copyFileSync(`./pkg/tasks/${file}`, `./tasks/${file}`);
-// });
+	stdout.on("data", function(data) {
+		console.log(data.toString());
+	});
+});
